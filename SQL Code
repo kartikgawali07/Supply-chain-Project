@@ -1,0 +1,103 @@
+# Total Revenue
+
+SELECT 
+    ROUND(SUM(`Revenue generated`), 2) AS Total_Revenue
+FROM supply_chain_data;
+
+# Total Units Sold
+
+SELECT 
+    SUM(`Number of products sold`) AS Total_Units_Sold
+FROM supply_chain_data;
+
+# Average Profit Margin per Product
+
+SELECT 
+    SKU,
+    ROUND(AVG(`Revenue generated` - (`Manufacturing costs` + `Shipping costs` + `Costs`)), 2) AS Avg_Profit
+FROM supply_chain_data
+GROUP BY SKU
+ORDER BY Avg_Profit DESC;
+
+# Revenue by Product Type
+
+SELECT 
+    `Product type`,
+    ROUND(SUM(`Revenue generated`), 2) AS Total_Revenue
+FROM supply_chain_data
+GROUP BY `Product type`
+ORDER BY Total_Revenue DESC;
+
+#Top 5 Products by Sales Quantity
+
+SELECT 
+    SKU,
+    SUM(`Number of products sold`) AS Total_Sold
+FROM supply_chain_data
+GROUP BY SKU
+ORDER BY Total_Sold DESC
+LIMIT 5;
+
+#Top 5 Suppliers by Revenue Contribution
+
+SELECT 
+    `Supplier name`,
+    ROUND(SUM(`Revenue generated`), 2) AS Supplier_Revenue
+FROM supply_chain_data
+GROUP BY `Supplier name`
+ORDER BY Supplier_Revenue DESC
+LIMIT 5;
+
+#Average Lead Time by Supplier
+
+SELECT 
+    `Supplier name`,
+    ROUND(AVG(`Lead time`), 2) AS Avg_Lead_Time
+FROM supply_chain_data
+GROUP BY `Supplier name`
+ORDER BY Avg_Lead_Time;
+
+#Defect Rate by Product Type
+
+SELECT 
+    `Product type`,
+    ROUND(AVG(`Defect rates`), 2) AS Avg_Defect_Rate
+FROM supply_chain_data
+GROUP BY `Product type`
+ORDER BY Avg_Defect_Rate DESC;
+
+#Average Shipping Cost by Carrier
+
+SELECT 
+    `Shipping carriers`,
+    ROUND(AVG(`Shipping costs`), 2) AS Avg_Shipping_Cost
+FROM supply_chain_data
+GROUP BY `Shipping carriers`
+ORDER BY Avg_Shipping_Cost DESC;
+
+#Transportation Mode Usage
+
+SELECT 
+    `Transportation modes`,
+    COUNT(*) AS No_of_Orders
+FROM supply_chain_data
+GROUP BY `Transportation modes`
+ORDER BY No_of_Orders DESC;
+
+#Average Manufacturing Cost by Product Type
+
+SELECT 
+    `Product type`,
+    ROUND(AVG(`Manufacturing costs`), 2) AS Avg_Manufacturing_Cost
+FROM supply_chain_data
+GROUP BY `Product type`
+ORDER BY Avg_Manufacturing_Cost DESC;
+
+#Revenue by Customer Demographics
+
+SELECT 
+    `Customer demographics`,
+    ROUND(SUM(`Revenue generated`), 2) AS Total_Revenue
+FROM supply_chain_data
+GROUP BY `Customer demographics`
+ORDER BY Total_Revenue DESC;
